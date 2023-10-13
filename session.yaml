@@ -1,4 +1,4 @@
-session_name: web-atom
+session_name: cpp-test
 windows:
   - window_name: editor
     shell_command_before: nvim
@@ -6,4 +6,6 @@ windows:
   - window_name: vcs
     shell_command_before: lazygit
   - window_name: runner
-    shell_command_before: npm run dev
+    shell_command_before: pnpm dev
+  - window_name: mock-server
+    shell_command_before: pnpm mock-config-server
