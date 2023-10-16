@@ -1,0 +1,16 @@
+.root {
+  cursor: pointer;
+}
+.image {
+  --image-radius: rem(8);
+  max-width: rem(100);
+  max-height: rem(100);
+}
+
+.info {
+  align-self: flex-start;
+}
+
+.duration {
+  --text-color: var(--mantine-color-gray-7);
+}

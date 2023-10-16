@@ -1,0 +1,9 @@
+.root {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: rem(16);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column !important;
+  }
+}
