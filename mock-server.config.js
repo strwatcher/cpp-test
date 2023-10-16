@@ -25,7 +25,7 @@ const mockServerConfig = {
         {
           id: 1,
           title: "Inception",
-          rating: 8.8,
+          rating: 4.4,
           duration: {
             hours: 2,
             minutes: 28,
@@ -48,7 +48,7 @@ const mockServerConfig = {
         {
           id: 2,
           title: "The Shawshank Redemption",
-          rating: 9.3,
+          rating: 4.65,
           duration: {
             hours: 2,
             minutes: 22,
@@ -71,7 +71,7 @@ const mockServerConfig = {
         {
           id: 3,
           title: "The Dark Knight",
-          rating: 9.0,
+          rating: 4.5,
           duration: {
             hours: 2,
             minutes: 32,
@@ -94,7 +94,7 @@ const mockServerConfig = {
         {
           id: 4,
           title: "Pulp Fiction",
-          rating: 8.9,
+          rating: 4.45,
           duration: {
             hours: 2,
             minutes: 34,
@@ -117,7 +117,7 @@ const mockServerConfig = {
         {
           id: 5,
           title: "Forrest Gump",
-          rating: 8.8,
+          rating: 4.4,
           duration: {
             hours: 2,
             minutes: 22,
@@ -140,7 +140,7 @@ const mockServerConfig = {
         {
           id: 6,
           title: "The Matrix",
-          rating: 8.7,
+          rating: 4.35,
           duration: {
             hours: 2,
             minutes: 16,
@@ -163,7 +163,7 @@ const mockServerConfig = {
         {
           id: 7,
           title: "The Lord of the Rings: The Fellowship of the Ring",
-          rating: 8.8,
+          rating: 4.4,
           duration: {
             hours: 2,
             minutes: 58,
@@ -186,7 +186,7 @@ const mockServerConfig = {
         {
           id: 8,
           title: "Gladiator",
-          rating: 8.5,
+          rating: 4.25,
           duration: {
             hours: 2,
             minutes: 35,
@@ -209,7 +209,7 @@ const mockServerConfig = {
         {
           id: 9,
           title: "The Godfather",
-          rating: 9.2,
+          rating: 4.6,
           duration: {
             hours: 2,
             minutes: 55,
@@ -232,7 +232,7 @@ const mockServerConfig = {
         {
           id: 10,
           title: "Schindler's List",
-          rating: 8.9,
+          rating: 4.45,
           duration: {
             hours: 3,
             minutes: 15,

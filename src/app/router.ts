@@ -1,5 +1,5 @@
 import { appStarted } from "@/shared/config";
-import { routes, routesMap } from "@/shared/config/routing";
+import { controls, routes, routesMap } from "@/shared/config/routing";
 import { createHistoryRouter } from "atomic-router";
 import { sample } from "effector";
 import { createBrowserHistory } from "history";
@@ -7,6 +7,7 @@ import { createBrowserHistory } from "history";
 export const router = createHistoryRouter({
   routes: routesMap,
   notFoundRoute: routes.notFound,
+  controls,
 });
 
 sample({

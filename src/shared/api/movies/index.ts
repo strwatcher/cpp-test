@@ -7,12 +7,7 @@ import { zodContract } from "@farfetched/zod";
 import { Id, IdContract } from "@/shared/config/common";
 import { z } from "zod";
 import { combineUrl } from "../common";
-
-export const DurationContract = z.object({
-  hours: z.number(),
-  minutes: z.number(),
-});
-export type Duration = z.infer<typeof DurationContract>;
+import { DurationContract } from "@/shared/lib/duration";
 
 export const CommentContract = z.object({
   name: z.string(),
@@ -34,6 +29,7 @@ export type Movie = z.infer<typeof MovieContract>;
 export const GetMoviesResponseContract = z.array(MovieContract);
 export const getMoviesQuery = createJsonQuery({
   params: declareParams(),
+  initialData: [],
   request: {
     method: "GET",
     url: combineUrl({ resource: "movies" }),
@@ -47,6 +43,7 @@ export type GetOneMovieQueryParams = { id: Id };
 export const GetOneMovieResponseContract = MovieContract;
 export const getOneMovieQuery = createJsonQuery({
   params: declareParams<GetOneMovieQueryParams>(),
+  initialData: {} as Movie,
   request: {
     method: "GET",
     url: ({ id }) => combineUrl({ resource: "movies", other: `${id}` }),
@@ -60,7 +57,7 @@ export type PostMovieMutationParams = {
   body: Omit<Movie, "id" | "comments">;
 };
 export const PostMovieResponseContract = z.any();
-export const PostMovieMutation = createJsonMutation({
+export const postMovieMutation = createJsonMutation({
   params: declareParams<PostMovieMutationParams>(),
   request: {
     method: "POST",
@@ -86,7 +83,7 @@ export type RateMovieMutationParams = {
   };
 };
 export const RateMovieResponseContract = z.any();
-export const RateMovieMutation = createJsonMutation({
+export const rateMovieMutation = createJsonMutation({
   params: declareParams<RateMovieMutationParams>(),
   request: {
     method: "PATCH",
@@ -96,5 +93,28 @@ export const RateMovieMutation = createJsonMutation({
   },
   response: {
     contract: zodContract(RateMovieResponseContract),
+  },
+});
+
+export type PostCommentToMovieMutationParams = {
+  query: {
+    id: Id;
+  };
+  body: {
+    comments: Comment[];
+  };
+};
+
+export const PostCommentToMovieResponseContract = z.any();
+export const postCommentToMovieMutation = createJsonMutation({
+  params: declareParams<PostCommentToMovieMutationParams>(),
+  request: {
+    method: "PATCH",
+    url: ({ query }) =>
+      combineUrl({ resource: "movies", other: `${query.id}` }),
+    body: ({ body }) => body,
+  },
+  response: {
+    contract: zodContract(PostCommentToMovieResponseContract),
   },
 });

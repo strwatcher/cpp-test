@@ -13,6 +13,7 @@
     "@farfetched/core": "^0.10.0",
     "@farfetched/zod": "^0.10.0",
     "@mantine/core": "^7.0.0",
+    "@tabler/icons-react": "^2.39.0",
     "atomic-router": "^0.8.0",
     "atomic-router-react": "^0.8.5",
     "effector": "^22.8.6",
@@ -22,6 +23,7 @@
     "history": "^5.3.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
+    "patronum": "^1.20.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
@@ -40,7 +42,12 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "mock-config-server": "^3.2.0",
+    "postcss": "^8.4.31",
+    "postcss-preset-mantine": "^1.8.0",
+    "postcss-simple-vars": "^7.0.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "typescript-plugin-css-modules": "^5.0.1",
+    "vite": "^4.4.5",
+    "vitest": "^0.34.6"
   }
 }
