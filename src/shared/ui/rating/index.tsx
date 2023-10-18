@@ -1,4 +1,4 @@
-import { Group, Rating as R } from "@mantine/core";
+import { Group, Rating as R, Text } from "@mantine/core";
 
 export type RatingProps = {
   value: number;
@@ -15,7 +15,7 @@ export const Rating = (props: RatingProps) => {
         onChange={props.onChange}
         fractions={10}
       />{" "}
-      ({props.value})
+      <Text>({props.value})</Text>
     </Group>
   );
 };
