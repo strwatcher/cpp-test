@@ -1,3 +1,4 @@
+import { writeCommentModel } from "@/features/movies/write-comment";
 import { getOneMovieQuery } from "@/shared/api/movies";
 import { MovieRouteParams, routes } from "@/shared/config/routing";
 import { RouteParamsAndQuery, chainRoute } from "atomic-router";
@@ -21,3 +22,5 @@ sample({
   fn: ({ params }) => params,
   target: getOneMovieQuery.start,
 });
+
+export const { useWriteComment } = writeCommentModel($comments, route.$params);

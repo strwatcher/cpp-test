@@ -1,7 +1,9 @@
-import { getMoviesQuery } from "@/shared/api/movies";
+import { filterMoviesModel } from "@/features/movies/filter";
+import { sortMoviesModel } from "@/features/movies/sort/model";
+import { Movie, getMoviesQuery } from "@/shared/api/movies";
 import { routes } from "@/shared/config/routing";
 import { RouteParamsAndQuery, chainRoute } from "atomic-router";
-import { createEvent, sample } from "effector";
+import { createEvent, createStore, sample } from "effector";
 import { useUnit } from "effector-react";
 
 export const beforeOpen = createEvent<RouteParamsAndQuery<{}>>();
@@ -16,6 +18,13 @@ export const route = chainRoute({
 });
 
 export const openMovieClicked = createEvent<number>();
+export const $movies = createStore<Movie[]>([]);
+
+sample({
+  clock: getMoviesQuery.finished.success,
+  fn: ({ result }) => result,
+  target: $movies,
+});
 
 sample({
   clock: beforeOpen,
@@ -27,6 +36,9 @@ sample({
   fn: (id) => ({ id }),
   target: routes.movie.open,
 });
+
+export const { useMoviesFilters, $filtered } = filterMoviesModel($movies);
+export const { useSortMovies, $sorted } = sortMoviesModel($filtered);
 
 export function useMoviesModel() {
   return useUnit({
