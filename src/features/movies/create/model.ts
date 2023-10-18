@@ -1,16 +1,34 @@
-import { createApi, createStore, sample } from "effector";
-import { useUnit } from "effector-react";
+import { createApi, createEvent, createStore, sample } from "effector";
 import { createForm, useForm } from "effector-forms";
 import { ChangeEvent } from "react";
 import { PostMovieForm, mapFormToDto } from "./lib";
 import { getMoviesQuery, postMovieMutation } from "@/shared/api/movies";
 import { rules } from "@/shared/lib/forms/rules";
+import { persist } from "effector-storage/local";
+import { not } from "patronum";
+import { useUnit } from "effector-react";
 
 const $createMovieModalOpened = createStore(false);
+
+const addMovieButtonClicked = createEvent();
+const closeButtonClicked = createEvent();
 
 const createMovieModalApi = createApi($createMovieModalOpened, {
   open: () => true,
   close: () => false,
+});
+
+const $loadSavedMovieModalOpened = createStore(false);
+const loadSavedMovieModalApi = createApi($loadSavedMovieModalOpened, {
+  open: () => true,
+  close: () => false,
+});
+const chooseNotToLoadSavedData = createEvent();
+const chooseToLoadSavedData = createEvent();
+
+const $savedMovieFormData = createStore<PostMovieForm | null>(null);
+const { eraseSavedMovieFormData } = createApi($savedMovieFormData, {
+  eraseSavedMovieFormData: () => null,
 });
 
 const createMovieForm = createForm<PostMovieForm>({
@@ -43,6 +61,51 @@ const createMovieForm = createForm<PostMovieForm>({
   },
 });
 
+persist({ store: $savedMovieFormData, key: "createMovie" });
+
+sample({
+  clock: addMovieButtonClicked,
+  filter: $savedMovieFormData.map(Boolean),
+  target: loadSavedMovieModalApi.open,
+});
+
+sample({
+  clock: addMovieButtonClicked,
+  filter: not($savedMovieFormData),
+  target: createMovieModalApi.open,
+});
+
+sample({
+  clock: chooseToLoadSavedData,
+  source: $savedMovieFormData,
+  filter: Boolean,
+  target: [
+    createMovieForm.setForm,
+    loadSavedMovieModalApi.close,
+    createMovieModalApi.open,
+  ],
+});
+
+sample({
+  clock: chooseNotToLoadSavedData,
+  target: [
+    loadSavedMovieModalApi.close,
+    createMovieModalApi.open,
+    createMovieForm.reset,
+    eraseSavedMovieFormData,
+  ],
+});
+
+sample({
+  clock: closeButtonClicked,
+  target: [loadSavedMovieModalApi.close, createMovieModalApi.close],
+});
+
+sample({
+  clock: createMovieForm.$values,
+  target: $savedMovieFormData,
+});
+
 sample({
   clock: createMovieForm.formValidated,
   fn: mapFormToDto,
@@ -61,10 +124,15 @@ sample({
 export function useCreateMovie() {
   const form = useForm(createMovieForm);
   return {
-    modal: useUnit({
-      opened: $createMovieModalOpened,
-      ...createMovieModalApi,
+    modals: useUnit({
+      addMovieButtonClicked,
+      chooseToLoadSavedData,
+      chooseNotToLoadSavedData,
+      createOpened: $createMovieModalOpened,
+      loadDataOpened: $loadSavedMovieModalOpened,
+      closeButtonClicked,
     }),
+
     form: {
       submit: form.submit,
       fields: {

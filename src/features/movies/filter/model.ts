@@ -2,7 +2,7 @@ import { Movie } from "@/shared/api/movies";
 import { Store, createStore, sample } from "effector";
 import { createForm, useForm } from "effector-forms";
 import { MoviesFilters, MoviesFiltersParams, filterMovies } from "./lib";
-import { debounce, debug } from "patronum";
+import { debounce } from "patronum";
 import { querySync } from "atomic-router";
 import { controls, routes } from "@/shared/config/routing";
 
@@ -37,10 +37,6 @@ export function filterMoviesModel($movies: Store<Movie[]>) {
     source: filters.$values,
     timeout: 500,
   });
-
-  debug(debouncedFiltersChange);
-
-  debug(filters.$values);
 
   const $filtered = createStore<Movie[]>([]);
 
