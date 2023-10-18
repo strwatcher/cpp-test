@@ -1,5 +1,5 @@
 body {
-  padding: rem(8) !important;
+  padding: 0 !important;
   box-sizing: border-box;
   min-height: 100vh;
 }
